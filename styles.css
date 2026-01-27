@@ -407,16 +407,23 @@ width: 33%;
 @media (max-width: 768px) {
   .header {
     top: 4vh;
-    left: 6vw;
-    right: 6vw;
+    left: 0;
+    right: 0;
+    justify-content: center;
   }
 
   .title {
     font-size: clamp(1.8rem, 7vw, 3rem);
+    text-align: center;
+    align-items: center;
   }
 
   .logo {
+    position: fixed;
+    right: 6vw;
+    bottom: 4vh;
     width: clamp(90px, 18vw, 130px);
+    z-index: 6;
   }
 
   .character {

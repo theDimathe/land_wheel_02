@@ -57,8 +57,8 @@ body {
 }
 
 .title__light {
-  color: #e8e6e2;
-  opacity: 0.85;
+  color: #fff;
+  opacity: 0.95;
 }
 
 .title__accent {
@@ -91,7 +91,7 @@ body {
   position: absolute;
   bottom: 0;
   left: 4vw;
-  width: clamp(420px, 30vw, 666px);
+  
   z-index: 4;
 }
 
@@ -264,6 +264,7 @@ width: 33%;
 .modal__frame {
   position: absolute;
   inset: 0;
+  scale: .75;
 }
 
 .modal__frame img {
@@ -293,15 +294,16 @@ width: 33%;
 }
 
 .modal__button {
-  border: none;
-  background: linear-gradient(180deg, #ffcf5f 0%, #c88b15 100%);
-  color: #5b1e00;
-  font-size: clamp(0.9rem, 2.8vw, 1.2rem);
-  font-weight: 700;
-  padding: 0.65rem 2.2rem;
-  border-radius: 999px;
-  cursor: pointer;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+    border: none;
+    background: linear-gradient(180deg, #ffcf5f 0%, #c88b15 100%);
+    color: #5b1e00;
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 1rem 2.2rem;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+    margin: 20px;
 }
 
 .modal__coin {
@@ -312,14 +314,17 @@ width: 33%;
 }
 
 .modal__coin--left {
-  left: -8%;
-  top: 12%;
+    left: 9%;
+    top: 2%;
+    scale: .75;
 }
 
 .modal__coin--right {
-  right: -6%;
-  bottom: 8%;
-  animation-delay: -1.4s;
+    right: 15%;
+    bottom: -3%;
+    animation-delay: -1.4s;
+    z-index: 4;
+    scale: .8;
 }
 
 .wheel-area.is-winning .wheel-glow {
@@ -404,6 +409,34 @@ width: 33%;
   }
 }
 
+@media (max-width: 380px) {
+
+.title {
+    font-size: clamp(2.2rem, 7vw, 3rem);
+    text-align: center;
+    align-items: center;
+    }
+
+.character {
+    width: 85%;
+    left: -22vw;
+    bottom: -2vh;
+    }
+
+.wheel {
+    position: relative;
+    width: 116%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    z-index: 1;
+}
+
+
+}
+
+
+
 @media (max-width: 768px) {
   .header {
     top: 4vh;
@@ -412,10 +445,25 @@ width: 33%;
     justify-content: center;
   }
 
+  .scene__bg {
+      left: -270vw;
+  }
+
   .title {
-    font-size: clamp(1.8rem, 7vw, 3rem);
+    font-size: 3.3rem;
     text-align: center;
     align-items: center;
+    letter-spacing: 0;
+  }
+
+  .modal__frame {
+    scale: 1.13;
+    font-size: 1.1rem;
+  }
+
+  .modal__button {
+    margin: 0;
+
   }
 
   .logo {
@@ -460,15 +508,15 @@ width: 33%;
 
   .modal__coin--left {
     left: -8%;
-    top: -44%;
-    scale: 0.5;
+    top: -64%;
+    scale: 0.42;
 }
 .modal__coin--right {
     right: 14%;
-    bottom: -62%;
+    bottom: -82%;
     animation-delay: -1.4s;
     z-index: 4;
-    scale: .52;
+    scale: 0.42;
 }
 }
 

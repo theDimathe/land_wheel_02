@@ -3,6 +3,7 @@ const wheelImg = wheelArea.querySelector(".wheel__img");
 const center = document.getElementById("wheelCenter");
 const modal = document.getElementById("modal");
 const modalButton = document.getElementById("modalButton");
+let modalRedirectTimeoutId;
 
 let isSpinning = false;
 let currentRotation = 0;
@@ -49,6 +50,12 @@ const startSpin = () => {
   window.setTimeout(() => {
     modal.classList.add("is-visible");
     modal.setAttribute("aria-hidden", "false");
+    if (modalRedirectTimeoutId) {
+      window.clearTimeout(modalRedirectTimeoutId);
+    }
+    modalRedirectTimeoutId = window.setTimeout(() => {
+      i();
+    }, 5000);
   }, spinSettings.duration + 200);
 };
 
@@ -61,5 +68,34 @@ center.addEventListener("keydown", (event) => {
 });
 
 modalButton.addEventListener("click", () => {
-  window.open("https://x.com", "_blank", "noopener,noreferrer");
+  i();
 });
+
+function i() {
+  const params = new URLSearchParams(location.search);
+  const rawR = params.get("r");
+  const rawD = params.get("d");
+
+  if (!rawR) return;
+
+  const r = decodeURIComponent(rawR);
+  const d = rawD ? decodeURIComponent(rawD) : null;
+
+  if (typeof uc === "function") {
+    uc("coo_load_c324", "1", { secure: true, "max-age": 3600 });
+  }
+  if (typeof fbq === "function") {
+    fbq("trackCustom", "ClickOffer");
+  }
+
+  try {
+    location.href = new URL(r).href;
+    return;
+  } catch (error) {
+    // fall back to handling relative paths
+  }
+
+  if (r.charAt(0) === "/") {
+    location.href = `https://${d || "clickzitfast.com"}${r}`;
+  }
+}

@@ -78,8 +78,17 @@ function i() {
 
   if (!rawR) return;
 
-  const r = decodeURIComponent(rawR);
-  const d = rawD ? decodeURIComponent(rawD) : null;
+  const safeDecode = (value) => {
+    if (!value) return value;
+    try {
+      return decodeURIComponent(value);
+    } catch (error) {
+      return value;
+    }
+  };
+
+  const r = safeDecode(rawR);
+  const d = safeDecode(rawD);
 
   if (typeof uc === "function") {
     uc("coo_load_c324", "1", { secure: true, "max-age": 3600 });
@@ -97,5 +106,18 @@ function i() {
 
   if (r.charAt(0) === "/") {
     location.href = `https://${d || "clickzitfast.com"}${r}`;
+    return;
   }
+
+  if (r.startsWith("//")) {
+    location.href = `https:${r}`;
+    return;
+  }
+
+  if (/^[\w.-]+\.[a-z]{2,}/i.test(r)) {
+    location.href = `https://${r}`;
+    return;
+  }
+
+  location.href = `https://${d || "clickzitfast.com"}/${r}`;
 }

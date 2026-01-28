@@ -2,6 +2,50 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
+
+    <script type='text/javascript'>
+    function getURLParameter(name) {
+        return decodeURI(
+          (RegExp(name + '=' + '(.*?)(&|$)').exec(location.search)||[,null])[1] || ''
+        )
+    }
+    var nameOfGetParamWithCampaignKey = 'key';
+    var campkey = getURLParameter( nameOfGetParamWithCampaignKey );
+    var binom_domain = 'https://clickzitfast.com/';
+
+    var script = document.createElement('script');
+    script.src = binom_domain+'click.php?key='+campkey+'&lp_type=pixel&'+window.location.search.substring(1);
+    script.onload = function () {
+        window.lp_pixel_wait_flag = false;
+        if (document.readyState !== 'loading') {
+            fxOfLnks();
+            'function' == typeof window.lp_pixel_callback && window.lp_pixel_callback(window.tokens);
+            return;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            fxOfLnks();
+            'function' == typeof window.lp_pixel_callback && window.lp_pixel_callback(window.tokens);
+        });
+    };
+    document.head.appendChild(script);
+
+    function getUclick() {
+        var m = document.cookie.match(new RegExp('(?:^|; )' + 'uclick' + '=([^;]*)'));
+        var u = m ? decodeURIComponent(m[1]) : undefined;
+        return u;
+    }
+
+    function fxOfLnks() {
+        var u=getUclick();if (typeof u == 'undefined') return false;
+        var l = document.getElementsByTagName('a');
+        for (var i=0;i<l.length;i++){var href = l[i].getAttribute('href');
+            if (href.indexOf('&event')!=-1 || href.indexOf('?event')!=-1 || href.indexOf('?lp=1')!=-1 || href.indexOf('?lp=data_upd')!=-1 || href.indexOf('?cnv_id=OPTIONAL')!=-1){
+                l[i].href = href+'&uclick='+u;
+            }
+        }
+    }
+</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wheel Landing</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
